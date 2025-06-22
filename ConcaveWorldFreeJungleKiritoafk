@@ -1,0 +1,48 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RemoteEvent = ReplicatedStorage:WaitForChild("Project"):WaitForChild("RemoteEvent"):WaitForChild("ControlMessageEvent")
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local PlayerGui = player:WaitForChild("PlayerGui")
+
+local function createMessage(text)
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "KiritoMessageGui"
+    screenGui.ResetOnSpawn = false
+    screenGui.Parent = PlayerGui
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, 0, 0, 100)
+    textLabel.Position = UDim2.new(0, 0, 0.4, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextColor3 = Color3.new(1, 1, 1)
+    textLabel.TextScaled = true
+    textLabel.Font = Enum.Font.SourceSansBold
+    textLabel.Text = text
+    textLabel.Parent = screenGui
+
+    return screenGui
+end
+
+local kiritoGui = createMessage("KIRITO")
+wait(2)
+kiritoGui:Destroy()
+
+local afkGui = createMessage("AFK")
+
+local argsList = {
+    {2, {1, 1, 17}},
+    {2, {1, 1, 24}},
+}
+
+for i = 1, 170 do
+    for _, args in ipairs(argsList) do
+        RemoteEvent:FireServer(unpack(args))
+    end
+    wait(0.1)
+end
+
+wait(1)
+afkGui:Destroy()
+
+return
