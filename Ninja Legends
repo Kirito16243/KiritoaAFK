@@ -1,140 +1,152 @@
--- Ninja Legends OP GUI
+-- Kirito V3 GUI
 
-local gui2 = Instance.new("ScreenGui")
-gui2.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+local player = game.Players.LocalPlayer
+local gui2 = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+gui2.Name = "KiritoV3_GUI"
 
-local gui2Frame = Instance.new("Frame")
+-- ปุ่มเปิด/ปิด GUI
+local toggleMain = Instance.new("TextButton", gui2)
+toggleMain.Size = UDim2.new(0, 60, 0, 30)
+toggleMain.Position = UDim2.new(0, 10, 0, 10)
+toggleMain.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+toggleMain.Text = "Open"
+toggleMain.TextColor3 = Color3.fromRGB(255, 255, 255)
+toggleMain.TextSize = 12
+
+-- GUI หลัก
+local gui2Frame = Instance.new("Frame", gui2)
 gui2Frame.Size = UDim2.new(0, 180, 0, 220)
-gui2Frame.Position = UDim2.new(0.05, 0, 0.05, 0)
-gui2Frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+gui2Frame.Position = UDim2.new(0.05, 0, 0.1, 0)
+gui2Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 100)
+gui2Frame.Visible = false
 gui2Frame.Active = true
 gui2Frame.Draggable = true
-gui2Frame.Parent = gui2
 
-local gui2Title = Instance.new("TextLabel")
+local gui2Title = Instance.new("TextLabel", gui2Frame)
 gui2Title.Size = UDim2.new(1, 0, 0, 18)
-gui2Title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-gui2Title.Text = "Ninja Legends OP GUI"
+gui2Title.BackgroundColor3 = Color3.fromRGB(0, 0, 80)
+gui2Title.Text = "Kirito V3"
 gui2Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 gui2Title.TextSize = 10
-gui2Title.Parent = gui2Frame
 
-local toggleButton = Instance.new("TextButton")
-toggleButton.Size = UDim2.new(1, -10, 0, 20)
-toggleButton.Position = UDim2.new(0, 5, 0, 30)
-toggleButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-toggleButton.Text = "Toggle Master Elements"
-toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-toggleButton.TextSize = 10
-toggleButton.Parent = gui2Frame
+local function makeButton(text, y)
+	local btn = Instance.new("TextButton", gui2Frame)
+	btn.Size = UDim2.new(1, -10, 0, 20)
+	btn.Position = UDim2.new(0, 5, 0, y)
+	btn.BackgroundColor3 = Color3.fromRGB(0, 0, 120)
+	btn.Text = text
+	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	btn.TextSize = 10
+	return btn
+end
 
-local startButton = Instance.new("TextButton")
-startButton.Size = UDim2.new(1, -10, 0, 20)
-startButton.Position = UDim2.new(0, 5, 0, 55)
-startButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-startButton.Text = "Start"
-startButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-startButton.TextSize = 10
-startButton.Parent = gui2Frame
+local toggleButton = makeButton("Toggle Master Elements", 30)
+local startButton = makeButton("Start", 55)
 
 startButton.MouseButton1Click:Connect(function()
-    local args = {
-        [1] = "convertGems",
-        [2] = -9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
-    }
-    game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("zenMasterEvent"):FireServer(unpack(args))
+	game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("zenMasterEvent"):FireServer("convertGems", math.huge)
 end)
 
-local numberEntry = Instance.new("TextBox")
+local numberEntry = Instance.new("TextBox", gui2Frame)
 numberEntry.Size = UDim2.new(1, -20, 0, 25)
 numberEntry.Position = UDim2.new(0, 10, 0, 80)
-numberEntry.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+numberEntry.BackgroundColor3 = Color3.fromRGB(0, 0, 150)
 numberEntry.Text = "Enter number"
 numberEntry.TextColor3 = Color3.fromRGB(255, 255, 255)
 numberEntry.TextSize = 10
 numberEntry.ClearTextOnFocus = true
-numberEntry.Parent = gui2Frame
 
-local submitButton = Instance.new("TextButton")
+local submitButton = Instance.new("TextButton", gui2Frame)
 submitButton.Size = UDim2.new(1, -20, 0, 25)
 submitButton.Position = UDim2.new(0, 10, 0, 110)
-submitButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+submitButton.BackgroundColor3 = Color3.fromRGB(0, 0, 180)
 submitButton.Text = "Submit"
 submitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 submitButton.TextSize = 10
-submitButton.Parent = gui2Frame
 
 submitButton.MouseButton1Click:Connect(function()
-    local num = tonumber(numberEntry.Text)
-    if num then
-        game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("zenMasterEvent"):FireServer("convertGems", num)
-    else
-        numberEntry.Text = "Invalid number"
-    end
+	local num = tonumber(numberEntry.Text)
+	if num then
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("zenMasterEvent"):FireServer("convertGems", num)
+	else
+		numberEntry.Text = "Invalid number"
+	end
 end)
 
-local youtubeButton = Instance.new("TextButton")
-youtubeButton.Size = UDim2.new(1, -10, 0, 20)
-youtubeButton.Position = UDim2.new(0, 5, 0, 140)
-youtubeButton.BackgroundColor3 = Color3.fromRGB(60, 60, 200)
-youtubeButton.Text = "Subscribe YouTube"
-youtubeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-youtubeButton.TextSize = 10
-youtubeButton.Parent = gui2Frame
-
-youtubeButton.MouseButton1Click:Connect(function()
-    setclipboard("https://youtube.com/@kiritoxz7e?si=XwyTchxVPPyOV8Hv")
+local ytButton = makeButton("Subscribe YouTube", 140)
+ytButton.BackgroundColor3 = Color3.fromRGB(0, 0, 200)
+ytButton.MouseButton1Click:Connect(function()
+	setclipboard("https://youtube.com/@kiritoxz7e?si=XwyTchxVPPyOV8Hv")
 end)
 
-local masterGui = Instance.new("ScreenGui")
-masterGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+-- GUI 2 - Master Elements
+local masterGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+masterGui.Name = "MasterElementsGUI"
 masterGui.Enabled = false
 
-local masterFrame = Instance.new("Frame")
+local masterFrame = Instance.new("Frame", masterGui)
 masterFrame.Size = UDim2.new(0, 250, 0, 400)
 masterFrame.Position = UDim2.new(0.2, 0, 0.2, 0)
-masterFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-masterFrame.BackgroundTransparency = 0.5
+masterFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 90)
 masterFrame.Active = true
 masterFrame.Draggable = true
-masterFrame.Parent = masterGui
 
-local masterTitle = Instance.new("TextLabel")
+local masterTitle = Instance.new("TextLabel", masterFrame)
 masterTitle.Size = UDim2.new(1, 0, 0, 30)
-masterTitle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+masterTitle.BackgroundColor3 = Color3.fromRGB(0, 0, 70)
 masterTitle.Text = "Master Elements"
 masterTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
 masterTitle.TextSize = 14
-masterTitle.Parent = masterFrame
 
-local scrollFrame = Instance.new("ScrollingFrame")
+local scrollFrame = Instance.new("ScrollingFrame", masterFrame)
 scrollFrame.Size = UDim2.new(1, 0, 1, -30)
 scrollFrame.Position = UDim2.new(0, 0, 0, 30)
 scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 400)
 scrollFrame.ScrollBarThickness = 5
 scrollFrame.BackgroundTransparency = 1
-scrollFrame.Parent = masterFrame
 
 local elements = {
-    "Shadow Charge", "Electral Chaos", "Blazing Entity", "Shadowfire",
-    "Lightning", "Masterful Wrath", "Inferno", "Eternity Storm", "Frost"
+	"Shadow Charge", "Electral Chaos", "Blazing Entity", "Shadowfire",
+	"Lightning", "Masterful Wrath", "Inferno", "Eternity Storm", "Frost"
 }
 
 for i, element in ipairs(elements) do
-    local button = Instance.new("TextButton")
-    button.Size = UDim2.new(1, -20, 0, 30)
-    button.Position = UDim2.new(0, 10, 0, (i - 1) * 35)
-    button.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-    button.Text = "Master " .. element
-    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.TextSize = 10
-    button.Parent = scrollFrame
-
-    button.MouseButton1Click:Connect(function()
-        game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("elementMasteryEvent"):FireServer(element)
-    end)
+	local button = Instance.new("TextButton", scrollFrame)
+	button.Size = UDim2.new(1, -20, 0, 30)
+	button.Position = UDim2.new(0, 10, 0, (i - 1) * 35)
+	button.BackgroundColor3 = Color3.fromRGB(0, 0, 130)
+	button.Text = "Master " .. element
+	button.TextColor3 = Color3.fromRGB(255, 255, 255)
+	button.TextSize = 10
+	button.MouseButton1Click:Connect(function()
+		game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("elementMasteryEvent"):FireServer(element)
+	end)
 end
 
+-- ไล่สีสีน้ำเงินเข้ม → อ่อน → กลับเข้ม
+task.spawn(function()
+	local step = 5
+	local value = 60
+	local increasing = true
+	while true do
+		wait(0.05)
+		if increasing then value += step else value -= step end
+		if value >= 200 then increasing = false end
+		if value <= 60 then increasing = true end
+		local col = Color3.fromRGB(0, 0, value)
+		gui2Frame.BackgroundColor3 = col
+		gui2Title.BackgroundColor3 = col
+		masterFrame.BackgroundColor3 = col
+		masterTitle.BackgroundColor3 = col
+	end
+end)
+
+-- ปุ่มเปิดปิด GUI
+toggleMain.MouseButton1Click:Connect(function()
+	gui2Frame.Visible = not gui2Frame.Visible
+	toggleMain.Text = gui2Frame.Visible and "Close" or "Open"
+end)
+
 toggleButton.MouseButton1Click:Connect(function()
-    masterGui.Enabled = not masterGui.Enabled
+	masterGui.Enabled = not masterGui.Enabled
 end)
