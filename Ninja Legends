@@ -1,21 +1,20 @@
 -- Ninja Legends OP GUI
 
 local gui2 = Instance.new("ScreenGui")
-gui2.Name = "KiritoXZ_GUI"
 gui2.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 local gui2Frame = Instance.new("Frame")
 gui2Frame.Size = UDim2.new(0, 180, 0, 220)
 gui2Frame.Position = UDim2.new(0.05, 0, 0.05, 0)
-gui2Frame.BackgroundColor3 = Color3.fromRGB(0, 50, 100)
+gui2Frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 gui2Frame.Active = true
 gui2Frame.Draggable = true
 gui2Frame.Parent = gui2
 
 local gui2Title = Instance.new("TextLabel")
 gui2Title.Size = UDim2.new(1, 0, 0, 18)
-gui2Title.BackgroundColor3 = Color3.fromRGB(0, 30, 80)
-gui2Title.Text = "KiritoXZ GUI"
+gui2Title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+gui2Title.Text = "Ninja Legends OP GUI"
 gui2Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 gui2Title.TextSize = 10
 gui2Title.Parent = gui2Frame
@@ -23,7 +22,7 @@ gui2Title.Parent = gui2Frame
 local toggleButton = Instance.new("TextButton")
 toggleButton.Size = UDim2.new(1, -10, 0, 20)
 toggleButton.Position = UDim2.new(0, 5, 0, 30)
-toggleButton.BackgroundColor3 = Color3.fromRGB(0, 60, 120)
+toggleButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 toggleButton.Text = "Toggle Master Elements"
 toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 toggleButton.TextSize = 10
@@ -32,16 +31,24 @@ toggleButton.Parent = gui2Frame
 local startButton = Instance.new("TextButton")
 startButton.Size = UDim2.new(1, -10, 0, 20)
 startButton.Position = UDim2.new(0, 5, 0, 55)
-startButton.BackgroundColor3 = Color3.fromRGB(0, 70, 140)
+startButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 startButton.Text = "Start"
 startButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 startButton.TextSize = 10
 startButton.Parent = gui2Frame
 
+startButton.MouseButton1Click:Connect(function()
+    local args = {
+        [1] = "convertGems",
+        [2] = -9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("zenMasterEvent"):FireServer(unpack(args))
+end)
+
 local numberEntry = Instance.new("TextBox")
 numberEntry.Size = UDim2.new(1, -20, 0, 25)
 numberEntry.Position = UDim2.new(0, 10, 0, 80)
-numberEntry.BackgroundColor3 = Color3.fromRGB(0, 90, 180)
+numberEntry.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
 numberEntry.Text = "Enter number"
 numberEntry.TextColor3 = Color3.fromRGB(255, 255, 255)
 numberEntry.TextSize = 10
@@ -51,7 +58,7 @@ numberEntry.Parent = gui2Frame
 local submitButton = Instance.new("TextButton")
 submitButton.Size = UDim2.new(1, -20, 0, 25)
 submitButton.Position = UDim2.new(0, 10, 0, 110)
-submitButton.BackgroundColor3 = Color3.fromRGB(0, 110, 200)
+submitButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 submitButton.Text = "Submit"
 submitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 submitButton.TextSize = 10
@@ -69,7 +76,7 @@ end)
 local youtubeButton = Instance.new("TextButton")
 youtubeButton.Size = UDim2.new(1, -10, 0, 20)
 youtubeButton.Position = UDim2.new(0, 5, 0, 140)
-youtubeButton.BackgroundColor3 = Color3.fromRGB(0, 130, 220)
+youtubeButton.BackgroundColor3 = Color3.fromRGB(60, 60, 200)
 youtubeButton.Text = "Subscribe YouTube"
 youtubeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 youtubeButton.TextSize = 10
@@ -79,9 +86,7 @@ youtubeButton.MouseButton1Click:Connect(function()
     setclipboard("https://youtube.com/@kiritoxz7e?si=XwyTchxVPPyOV8Hv")
 end)
 
--- Master GUI (toggle)
 local masterGui = Instance.new("ScreenGui")
-masterGui.Name = "MasterElementsGUI"
 masterGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 masterGui.Enabled = false
 
@@ -132,22 +137,4 @@ end
 
 toggleButton.MouseButton1Click:Connect(function()
     masterGui.Enabled = not masterGui.Enabled
-end)
-
--- ปุ่มสีดำเปิด/ปิด GUI หลัก
-local blackToggleButton = Instance.new("TextButton")
-blackToggleButton.Size = UDim2.new(0, 40, 0, 30)
-blackToggleButton.Position = UDim2.new(0, 10, 0, 10)
-blackToggleButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-blackToggleButton.Text = "GUI"
-blackToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-blackToggleButton.TextSize = 12
-
-local blackToggleGui = Instance.new("ScreenGui")
-blackToggleGui.Name = "ToggleGUI_Button"
-blackToggleGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-blackToggleButton.Parent = blackToggleGui
-
-blackToggleButton.MouseButton1Click:Connect(function()
-    gui2.Enabled = not gui2.Enabled
 end)
