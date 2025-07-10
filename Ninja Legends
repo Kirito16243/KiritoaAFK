@@ -133,3 +133,21 @@ end
 toggleButton.MouseButton1Click:Connect(function()
     masterGui.Enabled = not masterGui.Enabled
 end)
+
+-- ปุ่มสีดำเปิด/ปิด GUI หลัก
+local blackToggleButton = Instance.new("TextButton")
+blackToggleButton.Size = UDim2.new(0, 40, 0, 30)
+blackToggleButton.Position = UDim2.new(0, 10, 0, 10)
+blackToggleButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+blackToggleButton.Text = "GUI"
+blackToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+blackToggleButton.TextSize = 12
+
+local blackToggleGui = Instance.new("ScreenGui")
+blackToggleGui.Name = "ToggleGUI_Button"
+blackToggleGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+blackToggleButton.Parent = blackToggleGui
+
+blackToggleButton.MouseButton1Click:Connect(function()
+    gui2.Enabled = not gui2.Enabled
+end)
